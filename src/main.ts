@@ -6,10 +6,16 @@ import { cors } from './constant';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(
+    AppModule, 
+    {logger: ['log', 'error', 'warn', 'debug', 'verbose']
+    });
 
   app.use(morgan('dev'));
-  app.useGlobalPipes(new ValidationPipe({
+  app.useGlobalPipes(
+    new ValidationPipe({
+    forbidNonWhitelisted: true,
+    whitelist: true,
     transformOptions: {
       enableImplicitConversion: true,
     },
