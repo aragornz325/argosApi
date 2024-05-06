@@ -7,7 +7,7 @@ import { UsersProjectsEntity } from "./usersProjects.entity";
 @Entity({name: 'users'})
 export class UsersEntity extends BaseEntity implements iUser{
   
-    @Column()
+  @Column()
   firstName: string;
   
   @Column()
@@ -18,9 +18,6 @@ export class UsersEntity extends BaseEntity implements iUser{
   
   @Column({unique: true})
   email: string;
-
-  @Column()
-  phone: string;
   
   @Column()
   password: string;

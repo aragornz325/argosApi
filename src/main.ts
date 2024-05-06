@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import * as morgan from 'morgan';
 import { cors } from './constant';
 import { ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(
@@ -21,6 +22,14 @@ async function bootstrap() {
     },
   }
   ));
+
+  const options = new DocumentBuilder()
+    .setTitle('API Documentation')
+    .setDescription('API Documentation for my NestJS application')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
 
   const configService = app.get(ConfigService);
 

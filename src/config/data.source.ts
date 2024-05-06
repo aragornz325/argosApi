@@ -23,7 +23,6 @@ export const DataSourceConfig: DataSourceOptions = {
     logging: false,
     namingStrategy: new SnakeNamingStrategy(),
     migrationsTableName: "custom_migration_table",
-
 };
 
 export const AppDS = new DataSource(DataSourceConfig);
