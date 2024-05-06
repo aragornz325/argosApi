@@ -1,0 +1,13 @@
+{
+  "plugins": ["@typescript-eslint/prettier"],
+  "rules": {
+    "@typescript-eslint/prettier": "error"
+  },
+  "prettier/prettier": [
+    "error",
+    {
+      "singleQuote": true,
+      "parser": "flow"
+    }
+  ]
+}
