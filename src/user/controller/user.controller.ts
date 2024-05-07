@@ -7,11 +7,15 @@ import {
     ParseUUIDPipe,
     Post,
     Put,
+    UseGuards,
 } from "@nestjs/common"
 import { UserService } from "../service/user.service"
 import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
+import { PublicAccess } from "src/auth/decorators/public.decorator"
+import { AuthGuard } from "src/auth/guards/auth.guard"
 
 @Controller("user")
+@UseGuards(AuthGuard)
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
@@ -25,6 +29,7 @@ export class UserController {
         return this.userService.getAllUsers()
     }
 
+    @PublicAccess()
     @Get(":id")
     getById(@Param("id", ParseUUIDPipe) id: string) {
         return this.userService.getUserById(id)

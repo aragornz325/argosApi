@@ -1,38 +1,43 @@
 import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
 import * as bcrypt from "bcrypt"
 
 import { UsersEntity } from "src/user/entities/user.entity"
-import { Repository } from "typeorm"
+import { UserService } from "src/user/service/user.service"
+import { ErrorManager } from "src/utils/error.manager"
+import { AuthBody } from "../interfaces/auth.interfaces"
+import { JWT } from "src/utils/jwt"
 
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectRepository(UsersEntity)
-        private readonly userRepository: Repository<UsersEntity>,
+        private readonly userService: UserService,
     ) {}
 
-    public async login(body: { email: string; password: string }) {
+    public async login(body: AuthBody) {
         try {
-            const user = await this.userRepository.findOne({
-                where: {
-                    email: body.email,
-                },
-            })
+            const user: UsersEntity = await this.userService.findByEmail(body.email)
             if (!user) {
-                return {
+                throw new ErrorManager({
+                    type: "NOT_FOUND",
                     message: "User not found",
-                }
+                })
             }
-            const isMatch = await bcrypt.compare(body.password, user.password)
-            if (!isMatch) {
-                return {
-                    message: "Invalid credentials",
-                }
+            const passwordMatch = await bcrypt.compare(body.password, user.password)
+            if (!passwordMatch) {
+                throw new ErrorManager({
+                    type: "UNAUTHORIZED",
+                    message: "Invalid password",
+                })
             }
-            return {
-                message: "Login successful",
-            }
-        } catch (error) {}
+            const token = JWT.signJWT(user)
+            return { token }
+
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
     }
+
+   
+
+
 }

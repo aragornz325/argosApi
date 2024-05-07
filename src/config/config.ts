@@ -1,4 +1,5 @@
 import { ConfigModule, ConfigService, registerAs } from "@nestjs/config"
+import { token } from "morgan"
 
 ConfigModule.forRoot({
     envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -20,6 +21,8 @@ export default registerAs("config", () => {
         },
         security: {
             apiKey: configService.get("API_KEY"),
+            tokenSecret: configService.get("TOKEN_SECRET"),
+            tokenExpiration: configService.get("TOKEN_EXPIRATION"),
         },
     }
 })
