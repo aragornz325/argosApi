@@ -1,2 +1,1 @@
-export {cors} from './cors'
-
+export { cors } from "./cors"

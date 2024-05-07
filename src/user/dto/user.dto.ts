@@ -1,48 +1,47 @@
-import { PartialType, ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { ROLES } from "src/constant/roles";
+import { PartialType, ApiProperty } from "@nestjs/swagger"
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { ROLES } from "src/constant/roles"
 
 export class UserDTO {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    firstName: string;
-    
+    firstName: string
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    lastName: string;
-    
+    lastName: string
+
     @ApiProperty()
     @IsNotEmpty()
     @IsNumber()
-    age: number;
-    
+    age: number
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    email: string;
-    
+    email: string
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    username: string;
-    
+    username: string
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    password: string;
-    
+    password: string
+
     @ApiProperty()
     @IsNotEmpty()
     @IsEnum(ROLES)
-    role: ROLES;
-    
+    role: ROLES
+
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    phone: string;
-  
+    phone: string
 }
 
 export class UserUpdateDTO extends PartialType(UserDTO) {}
