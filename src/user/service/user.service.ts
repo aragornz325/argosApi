@@ -12,18 +12,22 @@ import { UsersEntity } from "../entities/user.entity"
 import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
 import config from "src/config/config"
 import { ErrorManager } from "src/utils/error.manager"
+import { ProfileEntity } from "../entities/profile.entity"
+import { ProfileDTO } from "../dto/profile.dto"
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UsersEntity)
         private readonly userRepository: Repository<UsersEntity>,
+        @InjectRepository(ProfileEntity)
+        private readonly ProfileRepository: Repository<ProfileEntity>,
     ) {}
 
     public async createUser(body: UserDTO): Promise<UsersEntity> {
         try {
             Logger.log("Creating user")
-            console.log(config().bcrypt.salt)
+            Logger.log('hashing password')
             const hashedPassword = bcrypt.hashSync(
                 body.password,
                 parseInt(config().bcrypt.salt),
@@ -50,7 +54,9 @@ export class UserService {
 
     public async getAllUsers(): Promise<UsersEntity[]> {
         try {
-            const users: UsersEntity[] = await this.userRepository.find()
+            const users: UsersEntity[] = await this.userRepository.find({
+                relations: {profile: true},
+            })
             users.forEach(user => {
                 delete user.password
             })
@@ -67,11 +73,11 @@ export class UserService {
 
     public async getUserById(id: string): Promise<UsersEntity> {
         try {
-            const user: UsersEntity  = await this.userRepository
-                .createQueryBuilder("user")
-                .where({ id })
-                .getOne()
-
+            const user: UsersEntity  = await this.userRepository.findOne({
+                where: {id}, 
+                relations: {profile: true}
+            })
+        
             if (!user) {
                 throw new ErrorManager({
                     type: "NOT_FOUND",
@@ -139,6 +145,43 @@ export class UserService {
             }
 
             return user
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
+    }
+
+    public async createProfile({
+        body, 
+        userId
+    }: {
+        body: ProfileDTO, 
+        userId: string
+    }): Promise<UsersEntity> {
+        try {
+            Logger.log("searching for user")
+            const user = await this.getUserById(userId)
+            Logger.log("user found, checking for existing profile")
+            if (user.profile) {
+                Logger.error("User already has a profile")
+                throw new ErrorManager({
+                    type: "BAD_REQUEST",
+                    message: "User already has a profile",
+                })
+            }
+            Logger.log("Creating profile")
+            const profile = await this.ProfileRepository.save({...body, user})
+            if (!profile) {
+                Logger.error("Error creating profile")
+                throw new ErrorManager({
+                    type: "INTERNAL_SERVER_ERROR",
+                    message: "Error creating profile",
+                })
+            }
+            Logger.log("Profile created, updating user")
+            user.profile = profile;
+            await this.userRepository.save(user);
+            const userUpdated = await this.getUserById(userId)
+            return userUpdated; 
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
         }

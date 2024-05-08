@@ -1,5 +1,5 @@
 import { BaseEntity } from "../../config/base.entity";
-import { iTrafficTicket } from "../../interfaces/trafficTicket.interface";
+import { iTrafficTicket } from "../interfaces/trafficTicket.interface";
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 
 import { TYPEOFSERVICE, VEHICLEBRAND } from "../../constant/ticket";

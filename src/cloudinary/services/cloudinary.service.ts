@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {v2 as cloudinary} from 'cloudinary';
-import { CloudinaryResponse } from 'src/interfaces/cloudinary.interface';
+import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
 
 
 const streamifier = require('streamifier');
@@ -41,7 +41,10 @@ export class CloudinaryService {
                 },
                 (error, result) => {
                     if (result) {
-                        const photoUrl = cloudinary.url(result.public_id, { secure: true, sign_url: true });
+                        const photoUrl = cloudinary.url(result.public_id, { 
+                            secure: true, 
+                            sign_url: true 
+                        });
                         resolve({...result, photoUrl});
                     } else {
                         reject(error);

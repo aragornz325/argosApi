@@ -6,7 +6,7 @@ import { trafficTicketDTO } from '../DTO/trafficTicket.dto';
 import { ErrorManager } from 'src/utils/error.manager';
 import { UserService } from 'src/user/service/user.service';
 import { CloudinaryService } from 'src/cloudinary/services/cloudinary.service';
-import { CloudinaryResponse } from 'src/interfaces/cloudinary.interface';
+import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
 
 @Injectable()
 export class TicketService {
@@ -57,8 +57,10 @@ export class TicketService {
     public async findAll(): Promise<TrafficTicketENTITY[]>{
        try {
         const tickets: TrafficTicketENTITY[] = await this.userRepository.find({
-            relations:{
-                user: true
+            relations: {
+                user: {
+                    profile: true
+                }
             }
         });
         if(tickets.length === 0) {
@@ -67,6 +69,10 @@ export class TicketService {
                 message: "No tickets found"
             })
         }
+        tickets.forEach(ticket => { 
+            delete ticket.user.password
+        }
+        );
         return tickets;
        } catch(error) {
         
