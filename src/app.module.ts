@@ -9,6 +9,7 @@ import { ProjectModule } from "./project/project.module"
 import { AuthModule } from "./auth/auth.module"
 import { ApiKeyMiddleware } from "./middlewares/api-key/api-key.middleware"
 import { TicketModule } from './ticket/ticket.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { TicketModule } from './ticket/ticket.module';
         ProjectModule,
         AuthModule,
         TicketModule,
+        CloudinaryModule,
     ],
     controllers: [],
     providers: [],

@@ -1,6 +1,6 @@
 import { BaseEntity } from "../../config/base.entity";
 import { iTrafficTicket } from "../../interfaces/trafficTicket.interface";
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 
 import { TYPEOFSERVICE, VEHICLEBRAND } from "../../constant/ticket";
 import { UsersEntity } from "../../user/entities/user.entity";
@@ -69,11 +69,16 @@ export class TrafficTicketENTITY extends BaseEntity implements iTrafficTicket {
     driverPhone: string;
 
     @Column({
+        type:'text',
+    })
+    photoURL: string;  
+
+    @Column({
         type:'text', 
         default: "no se proporciono email del conductor"})
     driverEmail: string;
 
-    @OneToOne(() => UsersEntity)
-    @JoinColumn()
+    @ManyToOne(() => UsersEntity, user => user.trafficTickets)
+    @JoinColumn({ name: 'user_id' })
     user: UsersEntity;
 }

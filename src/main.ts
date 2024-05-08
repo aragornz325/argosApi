@@ -26,8 +26,8 @@ async function bootstrap() {
     )
 
     const options = new DocumentBuilder()
-        .setTitle("API Documentation")
-        .setDescription("API Documentation for my NestJS application")
+        .setTitle("API Argos")
+        .setDescription("API Documentation for Argos Project")
         .setVersion("1.0")
         .build()
     const document = SwaggerModule.createDocument(app, options)

@@ -69,9 +69,6 @@ export class trafficTicketDTO {
     @IsOptional()
     driverEmail: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    userId:string
 }
 
 export class trafficTicketUpdateDTO extends PartialType(trafficTicketDTO) {}

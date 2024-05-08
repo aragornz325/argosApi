@@ -24,5 +24,10 @@ export default registerAs("config", () => {
             tokenSecret: configService.get("TOKEN_SECRET"),
             tokenExpiration: configService.get("TOKEN_EXPIRATION"),
         },
+        cloudinary: {
+            cloudName: configService.get("CLOUD_NAME"),
+            apiKey: configService.get("CLOUDINARY_API_KEY"),
+            apiSecret: configService.get("API_SECRET"),
+        },
     }
 })
