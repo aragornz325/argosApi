@@ -3,9 +3,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
 
 
-const streamifier = require('streamifier');
-
-
+import streamifier from 'streamifier';
 
 @Injectable()
 export class CloudinaryService {
