@@ -9,6 +9,7 @@ export class trafficTicketDTO {
     @IsNotEmpty()
     date: Date;
     
+    //TODO:anybody revisar si el tipado string esta bien
     @ApiProperty()
     @IsNotEmpty()
     time: string;

@@ -31,7 +31,11 @@ export class TicketService {
                     message: "User not found"
                 })
             }
-            const photo: CloudinaryResponse = await this.cloudinaryService.uploadImage(file);
+            const photo: CloudinaryResponse = await this.cloudinaryService.uploadImage({
+                file:file,
+                date: trafficTicket.date,
+                time: trafficTicket.time
+            });
 
             const ticket: TrafficTicketENTITY  = await this.userRepository.save({
                 ...trafficTicket, 
