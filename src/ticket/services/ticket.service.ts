@@ -3,10 +3,10 @@ import { TrafficTicketENTITY } from '../entities/trafficTicket.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { trafficTicketDTO } from '../DTO/trafficTicket.dto';
-import { ErrorManager } from 'src/utils/error.manager';
-import { UserService } from 'src/user/service/user.service';
-import { CloudinaryService } from 'src/cloudinary/services/cloudinary.service';
-import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
+import { ErrorManager } from 'utils/error.manager';
+import { UserService } from 'user/service/user.service';
+import { CloudinaryService } from 'cloudinary/services/cloudinary.service';
+import { CloudinaryResponse } from 'cloudinary/interfaces/cloudinary.interface';
 
 @Injectable()
 export class TicketService {

@@ -1,5 +1,5 @@
-import config from "src/config/config";
-import { UsersEntity } from "src/user/entities/user.entity";
+import config from "config/config";
+import { UsersEntity } from "user/entities/user.entity";
 import * as jsonwebtoken from "jsonwebtoken";
 
 

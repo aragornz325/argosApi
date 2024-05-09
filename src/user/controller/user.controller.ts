@@ -12,8 +12,8 @@ import {
 } from "@nestjs/common"
 import { UserService } from "../service/user.service"
 import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
-import { PublicAccess } from "src/auth/decorators/public.decorator"
-import { AuthGuard } from "src/auth/guards/auth.guard"
+import { PublicAccess } from "auth/decorators/public.decorator"
+import { AuthGuard } from "auth/guards/auth.guard"
 import { ProfileDTO } from "../dto/profile.dto"
 import { Request, request } from "express"
 
