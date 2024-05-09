@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {v2 as cloudinary} from 'cloudinary';
-import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
+import { CloudinaryResponse } from '../interfaces/cloudinary.interface';
 
 
-import streamifier from 'streamifier';
+
+const streamifier = require('streamifier');
+
+
 
 @Injectable()
 export class CloudinaryService {
@@ -18,33 +21,25 @@ export class CloudinaryService {
         }): Promise<CloudinaryResponse> 
     {
      return new Promise((resolve, reject) => {
-            const now = new Date();
-            const timestamp = `${date} - ${time}\n Sistema Argos`;
-
+            Logger.log('initializing cloudinary service')
+            const timestamp = `Fecha: ${date.getDay()} - Mes: ${date.getMonth()} - Año: ${date.getFullYear()} - ${time} - - Sistema Argos`;
+            Logger.log(`Uploading image to cloudinary`);
             const stream = cloudinary.uploader.upload_stream(
                 {
                     folder: 'argos',
                     sign_url: true,
                     transformation: [
-                        
-                        { overlay: { 
-                            font_family: 'Arial', 
-                            color: 'white', 
-                            font_size: 24, 
-                            text: timestamp, 
-                            gravity: 'south_east', 
-                            y: 10 
-                        }}
+                        {effect: "outline", color: "black"},
+                        {color: "white", overlay: {font_family: "roboto", font_size: 24, font_weight: "bold", text: timestamp}},
+                        {flags: "layer_apply", gravity: "south", y: 20},
                     ]
                 },
                 (error, result) => {
                     if (result) {
-                        const photoUrl = cloudinary.url(result.public_id, { 
-                            secure: true, 
-                            sign_url: true 
-                        });
-                        resolve({...result, photoUrl});
+                        Logger.log('image upload ok')
+                        resolve(result);
                     } else {
+                        Logger.fatal('fail to upload image')
                         reject(error);
                     }
                 }

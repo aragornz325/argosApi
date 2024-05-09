@@ -23,7 +23,6 @@ export class TicketController {
         ) file: Express.Multer.File, 
         @Body() body: trafficTicketDTO,
         @Req() req: Request) {
-        
         return this.ticketService.createTicket({
             trafficTicket: body,
             userId: req.idUser,
