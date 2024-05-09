@@ -7,9 +7,10 @@ import { TaskModule } from "./task/task.module"
 import { UserModule } from "./user/user.module"
 import { ProjectModule } from "./project/project.module"
 import { AuthModule } from "./auth/auth.module"
-import { ApiKeyMiddleware } from "./middlewares/api-key/api-key.middleware"
 import { TicketModule } from './ticket/ticket.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MailerModule } from './mailer/mailer.module';
+
 
 @Module({
     imports: [
@@ -26,6 +27,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
         AuthModule,
         TicketModule,
         CloudinaryModule,
+        MailerModule,
     ],
     controllers: [],
     providers: [],

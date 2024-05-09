@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta de Fotomulta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("path/to/background-texture.jpg"); /* Replace with the path to your image */
+            background-repeat: repeat;
+        }
+        .ticket {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header-left {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .header-right {
+            font-size: 14px;
+        }
+        .vehicle-info {
+            margin-bottom: 20px;
+        }
+        .vehicle-info p {
+            margin-bottom: 10px;
+        }
+        .vehicle-info span {
+            font-weight: bold;
+        }
+        .photo-section {
+            display: flex;
+            justify-content: center; /* Center the content horizontally */
+            align-items: flex-start; /* Align the content vertically (top) */
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        .photo-section img {
+            max-width: 350px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .photo-section .details {
+            font-size: 14px;
+        }
+        .notification {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            margin-bottom: 20px;
+            text-align: center; /* Center the text within the notification section */
+        }
+        .notification p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .payment {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            text-align: center;
+        }
+        .payment p {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .payment ul {
+            list-style: none;
+            padding: 0;
+        }
+        .payment ul li {
+            margin-bottom: 5px;
+        }
+        .payment ul li span {
+            font-weight: normal;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .footer p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="header">
+            <div class="header-left">
+                <p>MUNICIPALIDAD DE ALMAFUERTE</p>
+                <p>Dirección General de Tránsito</p>
+            </div>
+            <div class="header-right">
+                <p>Acta de Infracción N°: 1330965</p>
+                <p>Fecha: 2024-05-08</p>
+            </div>
+        </div>
+        <div class="vehicle-info">
+            <p><span>Dominio:</span> EYO034 - CHEVROLET</p>
+            <p><span>Modelo:</span> BLAZER 2.8 DLX T.INTERCOOLER 4X4</p>
+            <p><span>Localidad:</span> CAPITAL-MENDOZA (5500)</p>
+            <p><span>Tipo de Infracción:</span> Cruce de semáforo en rojo</p>
+            </div>
+        </div>
+        <div class="photo-section">
+            <img src="https://res.cloudinary.com/do5hovkvl/image/upload/s--KPvsASLd--/v1/argos/cqlljsk0gl9ev0rjmdlh?_a=BAMADKTE0" alt="Car Photo">
+            <div class="details">
+                <p>Fecha y Hora: 2014-02-18 13:06</p>
+                <p>Lugar: Peredo C/ Simon Bolivar - Almafuerte</p>
+            </div>
+        </div>
+        <div class="notification">
+            <p>QUEDA USTED DEBIDAMENTE NOTIFICADO</p>
+            <p>Por la presente se le notifica que ha sido infraccionado/a por la siguiente falta:</p>
+            <ul>
+                <li>Cruce de semáforo en rojo</li>
+            </ul>
+        </div>
+        <div class="payment">
+            <p>Comprobantes para el Pago:</p>
+            <ul>
+                <li>Rapipago (Número de Boleta: 123456789012345)</li>
+                <li>Pago Fácil (Número de Cupón: 987654321098765)</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>Ley Nacional de Tránsito N° 24.449</p>
+            <p>Para mayor información dirigirse a:</p>
+            <p>Dirección General de Tránsito - Municipalidad de Almafuerte</p>
+        </div>
+    </div>
+</body>
+</html>
+
