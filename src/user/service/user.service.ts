@@ -46,11 +46,11 @@ export class UserService {
                     message: "Error creating user",
                 })
             }
-            try {
-                await this.mailingService.sendUserConfirmation(body);
-            } catch (error) {
-                console.log(error);
-            }
+            // try {
+            //     await this.mailingService.sendUserConfirmation(body);
+            // } catch (error) {
+            //     console.log(error);
+            // }
             Logger.log("User created")
             return user
         } catch (error) {
