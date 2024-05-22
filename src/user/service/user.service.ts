@@ -10,10 +10,11 @@ import * as bcrypt from "bcrypt"
 
 import { UsersEntity } from "../entities/user.entity"
 import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
-import config from "src/config/config"
-import { ErrorManager } from "src/utils/error.manager"
+import config from "config/config"
+import { ErrorManager } from "utils/error.manager"
 import { ProfileEntity } from "../entities/profile.entity"
 import { ProfileDTO } from "../dto/profile.dto"
+import { MailingService } from "mailing/mailing.service"
 
 @Injectable()
 export class UserService {
@@ -22,6 +23,7 @@ export class UserService {
         private readonly userRepository: Repository<UsersEntity>,
         @InjectRepository(ProfileEntity)
         private readonly ProfileRepository: Repository<ProfileEntity>,
+        private mailingService: MailingService,
     ) {}
 
     public async createUser(body: UserDTO): Promise<UsersEntity> {
@@ -44,6 +46,11 @@ export class UserService {
                     message: "Error creating user",
                 })
             }
+            // try {
+            //     await this.mailingService.sendUserConfirmation(body);
+            // } catch (error) {
+            //     console.log(error);
+            // }
             Logger.log("User created")
             return user
         } catch (error) {

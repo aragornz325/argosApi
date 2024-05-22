@@ -9,7 +9,8 @@ import { ProjectModule } from "./project/project.module"
 import { AuthModule } from "./auth/auth.module"
 import { TicketModule } from './ticket/ticket.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { MailerModule } from './mailer/mailer.module';
+import { MailingModule } from './mailing/mailing.module';
+import { MailerModule } from "@nestjs-modules/mailer";
 
 
 @Module({
@@ -28,8 +29,8 @@ import { MailerModule } from './mailer/mailer.module';
         TicketModule,
         CloudinaryModule,
         MailerModule,
+        MailingModule,
     ],
-    controllers: [],
     providers: [],
 })
 export class AppModule {}

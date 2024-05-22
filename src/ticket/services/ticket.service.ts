@@ -3,10 +3,11 @@ import { TrafficTicketENTITY } from '../entities/trafficTicket.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { trafficTicketDTO } from '../DTO/trafficTicket.dto';
-import { ErrorManager } from 'src/utils/error.manager';
-import { UserService } from 'src/user/service/user.service';
-import { CloudinaryService } from 'src/cloudinary/services/cloudinary.service';
-import { CloudinaryResponse } from 'src/cloudinary/interfaces/cloudinary.interface';
+import { ErrorManager } from 'utils/error.manager';
+import { UserService } from 'user/service/user.service';
+import { CloudinaryService } from 'cloudinary/services/cloudinary.service';
+import { CloudinaryResponse } from 'cloudinary/interfaces/cloudinary.interface';
+import { MailingService } from 'mailing/mailing.service';
 
 @Injectable()
 export class TicketService {
@@ -14,7 +15,8 @@ export class TicketService {
         @InjectRepository(TrafficTicketENTITY)
         private readonly userRepository: Repository<TrafficTicketENTITY>,
         private readonly userService: UserService,
-        private readonly cloudinaryService: CloudinaryService
+        private readonly cloudinaryService: CloudinaryService,
+        private mailingService: MailingService,
     ) {}
 
    public async createTicket(
@@ -59,6 +61,13 @@ export class TicketService {
                     type: 'BAD_REQUEST',
                     message: "Error creating ticket",
                 })
+            }
+            if (ticket.driverEmail != null) {
+                try {
+                    await this.mailingService.sendTicketToOffender(trafficTicket);
+                } catch (error) {
+                    console.log(error);
+                }
             }
             Logger.log(`Ticket created successfully`);
             return ticket;
