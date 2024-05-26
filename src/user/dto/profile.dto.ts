@@ -1,6 +1,6 @@
 import { PartialType, ApiProperty } from "@nestjs/swagger"
 import {IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
-import { GENDER } from "src/constant/gender"
+import { GENDER } from "constant/gender"
 
 
 export class ProfileDTO {

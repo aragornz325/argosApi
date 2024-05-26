@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { IsEnum, IsNotEmpty, IsOptional } from "class-validator";
-import { TYPEOFSERVICE, VEHICLEBRAND } from "src/constant/ticket";
+import { TYPEOFSERVICE, VEHICLEBRAND } from "constant/ticket";
 
 
 export class trafficTicketDTO {
@@ -17,6 +17,14 @@ export class trafficTicketDTO {
     @ApiProperty()
     @IsNotEmpty()
     location: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    latitude: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    longitude: number;
     
     @ApiProperty()
     @IsNotEmpty()
@@ -27,9 +35,13 @@ export class trafficTicketDTO {
     vehicleBrand: VEHICLEBRAND;
     
     @ApiProperty()
+    @IsNotEmpty()
+    vehicleModel: string;
+
+    @ApiProperty()
     @IsOptional()
     modelYear: number;
-    
+
     @ApiProperty()
     @IsNotEmpty()
     color: string;

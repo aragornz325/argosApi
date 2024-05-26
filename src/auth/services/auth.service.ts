@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import * as bcrypt from "bcrypt"
 
-import { UsersEntity } from "src/user/entities/user.entity"
-import { UserService } from "src/user/service/user.service"
-import { ErrorManager } from "src/utils/error.manager"
+import { UsersEntity } from "user/entities/user.entity"
+import { UserService } from "user/service/user.service"
+import { ErrorManager } from "utils/error.manager"
 import { AuthBody } from "../interfaces/auth.interfaces"
-import { JWT } from "src/utils/jwt"
+import { JWT } from "utils/jwt"
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,7 @@ export class AuthService {
         private readonly userService: UserService,
     ) {}
 
-    public async login(body: AuthBody) {
+    public async login(body: AuthBody): Promise<{ token: string, user: UsersEntity }>{
         try {
             const user: UsersEntity = await this.userService.findByEmail(body.email)
             if (!user) {
@@ -30,7 +30,7 @@ export class AuthService {
                 })
             }
             const token = JWT.signJWT(user)
-            return { token }
+            return { token, user }
 
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)

@@ -16,6 +16,12 @@ export class TrafficTicketENTITY extends BaseEntity implements iTrafficTicket {
     
     @Column()
     location: string;
+
+    @Column()
+    latitude: number;
+
+    @Column()
+    longitude: number;
     
     @Column()
     plateNumber: string;
