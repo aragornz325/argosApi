@@ -6,6 +6,7 @@ import { cors } from "./constant"
 import { ValidationPipe } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 import { ApiKeyMiddleware } from "./middlewares/api-key/api-key.middleware"
+import config from "config/config"
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
@@ -25,6 +26,7 @@ async function bootstrap() {
         }),
     )
 
+
     const options = new DocumentBuilder()
         .setTitle("API Argos")
         .setDescription("API Documentation for Argos Project")
@@ -34,7 +36,7 @@ async function bootstrap() {
     SwaggerModule.setup("api", app, document)
 
     const configService = app.get(ConfigService)
-
+    
     app.enableCors(cors)
     app.setGlobalPrefix("api")
 
