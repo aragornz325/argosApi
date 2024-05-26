@@ -35,9 +35,13 @@ export class trafficTicketDTO {
     vehicleBrand: VEHICLEBRAND;
     
     @ApiProperty()
+    @IsNotEmpty()
+    vehicleModel: string;
+
+    @ApiProperty()
     @IsOptional()
     modelYear: number;
-    
+
     @ApiProperty()
     @IsNotEmpty()
     color: string;
