@@ -13,7 +13,7 @@ export class AuthService {
         private readonly userService: UserService,
     ) {}
 
-    public async login(body: AuthBody) {
+    public async login(body: AuthBody): Promise<{ token: string, user: UsersEntity }>{
         try {
             const user: UsersEntity = await this.userService.findByEmail(body.email)
             if (!user) {
@@ -30,7 +30,7 @@ export class AuthService {
                 })
             }
             const token = JWT.signJWT(user)
-            return { token }
+            return { token, user }
 
         } catch (error) {
             throw ErrorManager.createSignatureError(error.message)
