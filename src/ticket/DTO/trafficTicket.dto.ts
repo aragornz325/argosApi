@@ -17,6 +17,14 @@ export class trafficTicketDTO {
     @ApiProperty()
     @IsNotEmpty()
     location: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    latitude: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    longitude: number;
     
     @ApiProperty()
     @IsNotEmpty()
