@@ -35,11 +35,12 @@ export class TicketService {
                     message: "User not found"
                 })
             }
+
+
             Logger.log(`Uploading image to cloudinary`);
             const photo: CloudinaryResponse = await this.cloudinaryService.uploadImage({
                 file:file,
                 date: trafficTicket.date,
-                time: trafficTicket.time
             });
             if (!photo) {
                 Logger.error(`Error uploading image`);
@@ -50,10 +51,20 @@ export class TicketService {
             }
             
             Logger.log(`Creating ticket`);
+            
+            
+            console.log(`latitud: ${typeof trafficTicket.latitude}`);
+            console.log(`longitud: ${typeof trafficTicket.longitude}`);
+            console.log(`latitud: ${trafficTicket.latitude}`);
+            console.log(`longitud: ${trafficTicket.longitude}`);
+
+
             const ticket: TrafficTicketENTITY  = await this.userRepository.save({
-                ...trafficTicket, 
+                ...trafficTicket,
+                longitude: parseFloat(trafficTicket.longitude),
+                latitude: parseFloat(trafficTicket.latitude),
                 user, 
-                photoURL: photo.secure_url
+                photoURL: photo.secure_url,
             });
             if (!ticket) {
                 Logger.error(`Error creating ticket`);
@@ -72,7 +83,7 @@ export class TicketService {
             Logger.log(`Ticket created successfully`);
             return ticket;
         } catch(error) {
-            throw ErrorManager.createSignatureError(error.message);
+            throw ErrorManager.createSignatureError(error.stack);
         }
     }
 

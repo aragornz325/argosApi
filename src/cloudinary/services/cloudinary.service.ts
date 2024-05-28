@@ -13,16 +13,16 @@ export class CloudinaryService {
     uploadImage({
         file, 
         date, 
-        time
+
     }:{
             file: Express.Multer.File, 
             date:Date, 
-            time:string
+
         }): Promise<CloudinaryResponse> 
     {
      return new Promise((resolve, reject) => {
             Logger.log('initializing cloudinary service')
-            const timestamp = `Fecha: ${date.getDay()} - Mes: ${date.getMonth()} - Año: ${date.getFullYear()} - ${time} - - Sistema Argos`;
+            const timestamp = `Fecha: ${date.getDay()} - Mes: ${date.getMonth()} - Año: ${date.getFullYear()} - Hora: ${date.getHours}  - Sistema Argos`;
             Logger.log(`Uploading image to cloudinary`);
             const stream = cloudinary.uploader.upload_stream(
                 {

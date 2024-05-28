@@ -6,7 +6,6 @@ import { cors } from "./constant"
 import { ValidationPipe } from "@nestjs/common"
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 import { ApiKeyMiddleware } from "./middlewares/api-key/api-key.middleware"
-import config from "config/config"
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
@@ -15,7 +14,7 @@ async function bootstrap() {
 
     const apiKeyMiddleware = new ApiKeyMiddleware();
     app.use(apiKeyMiddleware.use.bind(apiKeyMiddleware));
-    app.use(morgan("dev"))
+    app.use(morgan("common"))
     app.useGlobalPipes(
         new ValidationPipe({
             forbidNonWhitelisted: true,
