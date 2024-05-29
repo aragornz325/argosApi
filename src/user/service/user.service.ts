@@ -15,6 +15,7 @@ import { ErrorManager } from "utils/error.manager"
 import { ProfileEntity } from "../entities/profile.entity"
 import { ProfileDTO } from "../dto/profile.dto"
 import { MailingService } from "mailing/mailing.service"
+import { GENDER } from "constant/gender"
 
 @Injectable()
 export class UserService {
@@ -46,13 +47,29 @@ export class UserService {
                     message: "Error creating user",
                 })
             }
-            // try {
-            //     await this.mailingService.sendUserConfirmation(body);
-            // } catch (error) {
-            //     console.log(error);
-            // }
-            Logger.log("User created")
-            return user
+            const userProfile: ProfileDTO = {
+                firstName: user.username,
+                lastName: user.username,
+                age: 99,
+                phone: '',
+                city: '',
+                country: '',
+                postalCode: '',
+                address: '',
+                gender: GENDER.MALE,
+                dateOfBirth: new Date(1971, 0, 1).toDateString(),
+            };
+            const userProfileCreated = await this.createProfile({body: userProfile, userId: user.id});
+            if (!userProfileCreated.profile) {
+                Logger.error("Error creating profile")
+                throw new ErrorManager({
+                    type: "INTERNAL_SERVER_ERROR",
+                    message: "Error creating profile",
+                })
+            }
+            user.profile = userProfileCreated.profile;
+            Logger.log("User created");
+            return user;
         } catch (error) {
             Logger.error("Error creating user", error.message)
             throw ErrorManager.createSignatureError(error.message)
