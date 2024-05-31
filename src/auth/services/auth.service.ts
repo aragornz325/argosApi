@@ -30,6 +30,12 @@ export class AuthService {
                 })
             }
             const token = JWT.signJWT(user)
+            delete user.password
+            delete user.createdAt
+            delete user.updatedAt
+            delete user.profile.id
+            delete user.profile.updatedAt
+            delete user.profile.createdAt
             return { token, user }
 
         } catch (error) {
