@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMailingDto } from './dto/create-mailing.dto';
-import { UpdateMailingDto } from './dto/update-mailing.dto';
 import { MailerService } from '@nestjs-modules/mailer';
-import { UserDTO } from 'user/dto/user.dto';
-import { trafficTicketDTO } from 'ticket/DTO/trafficTicket.dto';
+import { TrafficTicketENTITY } from 'ticket/entities/trafficTicket.entity';
 
 @Injectable()
 export class MailingService {
@@ -26,7 +23,7 @@ export class MailingService {
   /**
    * Envía el ticket de infracción por correo electrónico al conductor infractor.
    */
-  async sendTicketToOffender(ticket: trafficTicketDTO) {
+  async sendTicketToOffender(ticket:TrafficTicketENTITY) {
     await this.mailerService.sendMail({
       to: ticket.driverEmail,
       subject: `Hola, ${ticket.driverName}. Tenés una infracción.`,
