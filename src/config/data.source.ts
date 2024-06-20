@@ -1,13 +1,14 @@
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { DataSource, DataSourceOptions } from "typeorm"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
-import config from "./config"
 
 ConfigModule.forRoot({
     envFilePath: `.${process.env.NODE_ENV}.env`,
 })
 
 const configService = new ConfigService()
+
+
 
 export const DataSourceConfig: DataSourceOptions = {
     type: "postgres",

@@ -1,42 +1,50 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsOptional } from "class-validator";
-import { TYPEOFSERVICE, VEHICLEBRAND } from "src/constant/ticket";
+import { IsDate, IsDateString, IsEnum, IsNotEmpty, IsOptional } from "class-validator";
+import { Transform, Type } from 'class-transformer';
+import { TYPEOFSERVICE, VEHICLEBRAND } from "constant/ticket";
 
 
 export class trafficTicketDTO {
     
-    @ApiProperty()
     @IsNotEmpty()
+    @IsDate()
     date: Date;
-    
-    //TODO:anybody revisar si el tipado string esta bien
-    @ApiProperty()
-    @IsNotEmpty()
-    time: string;
     
     @ApiProperty()
     @IsNotEmpty()
     location: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    latitude: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    longitude: string;
     
     @ApiProperty()
     @IsNotEmpty()
     plateNumber: string;
      
-    @IsEnum(VEHICLEBRAND)
+    @ApiProperty()
     @IsNotEmpty()
-    vehicleBrand: VEHICLEBRAND;
+    vehicleBrand: string;
     
     @ApiProperty()
+    @IsNotEmpty()
+    vehicleModel: string;
+
+    @ApiProperty()
     @IsOptional()
-    modelYear: number;
-    
+    modelYear: string;
+
     @ApiProperty()
     @IsNotEmpty()
     color: string;
     
-    @IsEnum(TYPEOFSERVICE)
+    @ApiProperty()
     @IsNotEmpty()
-    typeOfService: TYPEOFSERVICE;
+    typeOfService: string;
     
     @ApiProperty()
     @IsOptional()
@@ -69,6 +77,7 @@ export class trafficTicketDTO {
     @ApiProperty()
     @IsOptional()
     driverEmail: string;
+
 
 }
 

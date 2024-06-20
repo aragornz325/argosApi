@@ -5,6 +5,7 @@ import {
     Get,
     Param,
     ParseUUIDPipe,
+    Patch,
     Post,
     Put,
     Req,
@@ -12,9 +13,9 @@ import {
 } from "@nestjs/common"
 import { UserService } from "../service/user.service"
 import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
-import { PublicAccess } from "src/auth/decorators/public.decorator"
-import { AuthGuard } from "src/auth/guards/auth.guard"
-import { ProfileDTO } from "../dto/profile.dto"
+import { PublicAccess } from "auth/decorators/public.decorator"
+import { AuthGuard } from "auth/guards/auth.guard"
+import { ProfileDTO, ProfileUpdateDTO } from "../dto/profile.dto"
 import { Request, request } from "express"
 
 @Controller("user")
@@ -58,4 +59,13 @@ export class UserController {
         @Req() req: Request) {
         return this.userService.createProfile({body:body, userId: req.idUser})
     }
+
+    @Patch('profile')
+    updateProfile(
+        @Body() body:ProfileUpdateDTO ,
+        @Req() req: Request) {
+
+        return this.userService.updateProfile({body:body, userId: req.idUser})
+    }
+
 }

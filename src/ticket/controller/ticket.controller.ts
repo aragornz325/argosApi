@@ -1,7 +1,7 @@
 import { Body, Controller, FileTypeValidator, Get, MaxFileSizeValidator, ParseFilePipe, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { TicketService } from '../services/ticket.service';
 import { trafficTicketDTO } from '../DTO/trafficTicket.dto';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AuthGuard } from 'auth/guards/auth.guard';
 import { Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -23,7 +23,7 @@ export class TicketController {
         ) file: Express.Multer.File, 
         @Body() body: trafficTicketDTO,
         @Req() req: Request) {
-        
+            
         return this.ticketService.createTicket({
             trafficTicket: body,
             userId: req.idUser,

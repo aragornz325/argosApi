@@ -7,30 +7,36 @@ import { UsersEntity } from "../../user/entities/user.entity";
 
 @Entity({ name: "traffic_tickets" })
 export class TrafficTicketENTITY extends BaseEntity implements iTrafficTicket {
-       
-    @Column({ type: 'date', default: () => 'CURRENT_DATE' })
-    date: Date;
     
-    @Column({ type: 'time', default: () => 'CURRENT_TIMESTAMP' })
-    time: string;
+    @Column({ type: 'timestamp' })
+    date: Date;
     
     @Column()
     location: string;
+
+    @Column('decimal', { precision: 10, scale: 2 })
+    latitude: number;
+
+    @Column('decimal', { precision: 10, scale: 2 })
+    longitude: number;
     
     @Column()
     plateNumber: string;
     
-    @Column({type: "enum", enum: VEHICLEBRAND})
-    vehicleBrand: VEHICLEBRAND;
+    @Column()
+    vehicleBrand: string;
+
+    @Column()
+    vehicleModel: string;
     
-    @Column({default: 0})
-    modelYear: number;
+    @Column()
+    modelYear: string;
     
     @Column()
     color: string;
     
-    @Column({type: "enum", enum: TYPEOFSERVICE})
-    typeOfService: TYPEOFSERVICE;
+    @Column()
+    typeOfService: string;
     
     @Column({nullable: true})
     infractionCode: string | null;

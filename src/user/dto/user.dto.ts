@@ -1,6 +1,6 @@
 import { PartialType, ApiProperty } from "@nestjs/swagger"
 import { IsEnum, IsNotEmpty, IsString } from "class-validator"
-import { ROLES } from "src/constant/roles"
+import { ROLES } from "constant/roles"
 
 export class UserDTO { 
     @ApiProperty()

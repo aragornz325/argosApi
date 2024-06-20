@@ -14,7 +14,7 @@ async function bootstrap() {
 
     const apiKeyMiddleware = new ApiKeyMiddleware();
     app.use(apiKeyMiddleware.use.bind(apiKeyMiddleware));
-    app.use(morgan("dev"))
+    app.use(morgan("tiny"))
     app.useGlobalPipes(
         new ValidationPipe({
             forbidNonWhitelisted: true,
@@ -25,16 +25,17 @@ async function bootstrap() {
         }),
     )
 
+
     const options = new DocumentBuilder()
         .setTitle("API Argos")
         .setDescription("API Documentation for Argos Project")
         .setVersion("1.0")
         .build()
     const document = SwaggerModule.createDocument(app, options)
-    SwaggerModule.setup("api", app, document)
+    SwaggerModule.setup("swagger", app, document)
 
     const configService = app.get(ConfigService)
-
+    
     app.enableCors(cors)
     app.setGlobalPrefix("api")
 

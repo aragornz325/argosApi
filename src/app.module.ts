@@ -7,9 +7,11 @@ import { TaskModule } from "./task/task.module"
 import { UserModule } from "./user/user.module"
 import { ProjectModule } from "./project/project.module"
 import { AuthModule } from "./auth/auth.module"
-import { ApiKeyMiddleware } from "./middlewares/api-key/api-key.middleware"
 import { TicketModule } from './ticket/ticket.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MailingModule } from './mailing/mailing.module';
+import { MailerModule } from "@nestjs-modules/mailer";
+
 
 @Module({
     imports: [
@@ -26,8 +28,9 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
         AuthModule,
         TicketModule,
         CloudinaryModule,
+        MailerModule,
+        MailingModule,
     ],
-    controllers: [],
     providers: [],
 })
 export class AppModule {}

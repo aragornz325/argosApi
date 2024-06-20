@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import * as bcrypt from "bcrypt"
 
-import { UsersEntity } from "src/user/entities/user.entity"
-import { UserService } from "src/user/service/user.service"
-import { ErrorManager } from "src/utils/error.manager"
+import { UsersEntity } from "user/entities/user.entity"
+import { UserService } from "user/service/user.service"
+import { ErrorManager } from "utils/error.manager"
 import { AuthBody } from "../interfaces/auth.interfaces"
-import { JWT } from "src/utils/jwt"
+import { JWT } from "utils/jwt"
 
 @Injectable()
 export class AuthService {
@@ -30,6 +30,12 @@ export class AuthService {
                 })
             }
             const token = JWT.signJWT(user)
+            delete user.password
+            delete user.createdAt
+            delete user.updatedAt
+            delete user.profile.id
+            delete user.profile.updatedAt
+            delete user.profile.createdAt
             return { token, user }
 
         } catch (error) {

@@ -4,7 +4,6 @@ services:
   rodrigo_pg:
     image: postgres:15.1
     container_name: rodrigo_pg
-    restart: always
     environment:
       POSTGRES_USER: argos_user
       POSTGRES_PASSWORD: secret1234
@@ -12,4 +11,29 @@ services:
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "7090:5432"
+
+  rodrigo_pg_test:
+    image: postgres:15.1
+    container_name: rodrigo_pg_test
+    environment:
+      POSTGRES_USER: argos_user_test
+      POSTGRES_PASSWORD: secret1234
+      POSTGRES_DB: argos_db_test
+    volumes:
+      - ./db/test-init.sql:/docker-entrypoint-initdb.d/test-init/test.init.sql
+    ports:
+      - "7091:5432"
+
+  sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
+    container_name: sqlitebrowser
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /path/to/config:/config
+    ports:
+      - 7080:3000
+    restart: unless-stopped
