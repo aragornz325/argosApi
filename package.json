@@ -19,6 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "orm:init": "npx typeorm-ts-node-commonjs -d ./src/config/data.source.ts",
+    "m:gen:prod": "export NODE_ENV=prod&& npm run orm:init migration:generate",
+    "m:run:prod": "export NODE_ENV=prod&& npm run orm:init migration:run",
     "m:gen:dev": "export NODE_ENV=dev&& npm run orm:init migration:generate",
     "m:run:dev": "export NODE_ENV=dev&& npm run orm:init migration:run",
     "m:gen:test": "export NODE_ENV=test&& npm run orm:init migration:generate",
