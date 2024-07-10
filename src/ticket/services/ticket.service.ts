@@ -51,14 +51,8 @@ export class TicketService {
             }
             
             Logger.log(`Creating ticket`);
-            
-            
-            console.log(`latitud: ${typeof trafficTicket.latitude}`);
-            console.log(`longitud: ${typeof trafficTicket.longitude}`);
-            console.log(`latitud: ${trafficTicket.latitude}`);
-            console.log(`longitud: ${trafficTicket.longitude}`);
 
-
+            
             const ticket: TrafficTicketENTITY  = await this.userRepository.save({
                 ...trafficTicket,
                 longitude: parseFloat(trafficTicket.longitude),
@@ -66,6 +60,7 @@ export class TicketService {
                 user, 
                 photoURL: photo.secure_url,
             });
+
             if (!ticket) {
                 Logger.error(`Error creating ticket`);
                 throw new ErrorManager({
@@ -73,9 +68,10 @@ export class TicketService {
                     message: "Error creating ticket",
                 })
             }
-            if (ticket.driverEmail != null) {
+
+            if (ticket.driverEmail != null && ticket.driverEmail != "" && ticket.driverEmail != undefined) {
                 try {
-                    await this.mailingService.sendTicketToOffender(trafficTicket);
+                    await this.mailingService.sendTicketToOffender(ticket);
                 } catch (error) {
                     console.log(error);
                 }

@@ -58,32 +58,32 @@ export class ProfileDTO {
     @ApiProperty()
     @IsOptional()
     @IsString()
-    avatarUrl?: string
+    avatarUrl: string
     
     @ApiProperty()
     @IsOptional()
     @IsString()
-    bio?: string
+    bio: string
 
     @ApiProperty()
     @IsOptional()
     @IsString()
-    socialMediaLinks?: string
+    socialMediaLinks: string
     
     @ApiProperty()
     @IsOptional()
     @IsString()
-    interests?: string
+    interests: string
     
     @ApiProperty()
     @IsOptional()
     @IsString()
-    education?: string
+    education: string
     
     @ApiProperty()
     @IsOptional()
     @IsString()
-    employment?: string
+    employment: string
 }
 
-export class UserUpdateDTO extends PartialType(ProfileDTO) {}
+export class ProfileUpdateDTO extends PartialType(ProfileDTO) {}

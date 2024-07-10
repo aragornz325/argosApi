@@ -13,7 +13,7 @@ import { UserDTO, UserUpdateDTO } from "../dto/user.dto"
 import config from "config/config"
 import { ErrorManager } from "utils/error.manager"
 import { ProfileEntity } from "../entities/profile.entity"
-import { ProfileDTO } from "../dto/profile.dto"
+import { ProfileDTO, ProfileUpdateDTO } from "../dto/profile.dto"
 import { MailingService } from "mailing/mailing.service"
 import { GENDER } from "constant/gender"
 
@@ -48,8 +48,8 @@ export class UserService {
                 })
             }
             const userProfile: ProfileDTO = {
-                firstName: user.username,
-                lastName: user.username,
+                firstName: 'sin nombre',
+                lastName: 'sin apellido',
                 age: 99,
                 phone: '',
                 city: '',
@@ -58,6 +58,12 @@ export class UserService {
                 address: '',
                 gender: GENDER.MALE,
                 dateOfBirth: new Date(1971, 0, 1).toDateString(),
+                avatarUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/No_avatar.png',
+                bio: '',
+                education: '',
+                employment: '',
+                interests: '',
+                socialMediaLinks: '',
             };
             const userProfileCreated = await this.createProfile({body: userProfile, userId: user.id});
             if (!userProfileCreated.profile) {
@@ -158,8 +164,10 @@ export class UserService {
         try {
             const user: UsersEntity = await this.userRepository
                 .createQueryBuilder("user")
+                .innerJoinAndSelect("user.profile", "profile")
                 .where({ email })
                 .getOne()
+
 
             if (!user) {
                 throw new ErrorManager({
@@ -210,4 +218,41 @@ export class UserService {
             throw ErrorManager.createSignatureError(error.message)
         }
     }
+
+    public async updateProfile({body, userId}:{body:ProfileUpdateDTO, userId:string})
+    : Promise<ProfileEntity> {
+        try {
+
+            const user = await this.getUserById(userId)
+
+            const profile = await this.ProfileRepository.findOne({ where: { id: user.profile.id } })
+
+            if (!profile) {
+                throw new ErrorManager({
+                    type: "NOT_FOUND",
+                    message: "Profile not found",
+                })
+            }
+            
+           await this.ProfileRepository
+           .createQueryBuilder()
+           .update(ProfileEntity)
+           .set(body)
+           .where("id = :id", { id: user.profile.id })
+           .execute()
+
+
+            const newProfile = await this.ProfileRepository.findOne({ where: { id: user.profile.id } })
+            delete newProfile.id
+            delete newProfile.createdAt
+            delete newProfile.updatedAt
+
+            return newProfile
+
+        } catch (error) {
+            throw ErrorManager.createSignatureError(error.message)
+        }
+    }
+
+
 }
