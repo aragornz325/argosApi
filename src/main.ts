@@ -12,6 +12,7 @@ async function bootstrap() {
         logger: ["log", "error", "warn", "debug", "verbose"],
     })
 
+    app.enableCors(cors)
     const apiKeyMiddleware = new ApiKeyMiddleware();
     app.use(apiKeyMiddleware.use.bind(apiKeyMiddleware));
     app.use(morgan("tiny"))
@@ -36,7 +37,6 @@ async function bootstrap() {
 
     const configService = app.get(ConfigService)
     
-    app.enableCors(cors)
     app.setGlobalPrefix("api")
 
     await app.listen(configService.get("PORT"))
