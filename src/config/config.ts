@@ -2,7 +2,7 @@ import { ConfigModule, ConfigService, registerAs } from "@nestjs/config"
 import { token } from "morgan"
 
 ConfigModule.forRoot({
-    envFilePath: `.${process.env.NODE_ENV}.env`,
+    envFilePath: '.dev.env',//envFilePath: `.${process.env.NODE_ENV}.env`,
 })
 
 const configService = new ConfigService()
@@ -10,24 +10,24 @@ const configService = new ConfigService()
 export default registerAs("config", () => {
     return {
         postgres: {
-            host: configService.get("DB_HOST"),
-            port: configService.get("DB_PORT"),
-            username: configService.get("DB_USER"),
-            password: configService.get("DB_PASSWORD"),
-            database: configService.get("DB_NAME"),
+            host: process.env.DB_HOST,
+            port: parseInt(process.env.DB_PORT, 10),
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
         },
         bcrypt: {
-            salt: configService.get("SALT_ROUNDS"),
+            salt: process.env.SALT_ROUNDS || "10", // Valor predeterminado como cadena 
         },
         security: {
-            apiKey: configService.get("API_KEY"),
-            tokenSecret: configService.get("TOKEN_SECRET"),
-            tokenExpiration: configService.get("TOKEN_EXPIRATION"),
+            apiKey: process.env.API_KEY,
+            tokenSecret: process.env.TOKEN_SECRET,
+            tokenExpiration: process.env.TOKEN_EXPIRATION,
         },
         cloudinary: {
-            cloudName: configService.get("CLOUD_NAME"),
-            apiKey: configService.get("CLOUDINARY_API_KEY"),
-            apiSecret: configService.get("API_SECRET"),
+            cloudName: process.env.CLOUD_NAME,
+            apiKey: process.env.CLOUDINARY_API_KEY,
+            apiSecret: process.env.API_SECRET,
         },
     }
 })

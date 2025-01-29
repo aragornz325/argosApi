@@ -83,6 +83,13 @@ export class TrafficTicketENTITY extends BaseEntity implements iTrafficTicket {
         type:'text', 
         default: "no se proporciono email del conductor"})
     driverEmail: string;
+    
+    //Columna de verificacion de multas
+    @Column({
+        type: 'boolean',
+        default: false 
+    })
+    isVerified: boolean;
 
     @ManyToOne(() => UsersEntity, user => user.trafficTickets)
     @JoinColumn({ name: 'user_id' })

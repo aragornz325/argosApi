@@ -2,6 +2,8 @@ import { ConfigModule, ConfigService } from "@nestjs/config"
 import { DataSource, DataSourceOptions } from "typeorm"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 
+//const config = ConfigModule.forRoot
+
 ConfigModule.forRoot({
     envFilePath: `.${process.env.NODE_ENV}.env`,
 })
@@ -25,5 +27,6 @@ export const DataSourceConfig: DataSourceOptions = {
     namingStrategy: new SnakeNamingStrategy(),
     migrationsTableName: "custom_migration_table",
 }
+
 
 export const AppDS = new DataSource(DataSourceConfig)

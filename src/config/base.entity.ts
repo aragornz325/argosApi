@@ -2,6 +2,7 @@ import {
     CreateDateColumn,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
+    DeleteDateColumn,
 } from "typeorm"
 
 export abstract class BaseEntity {
@@ -19,4 +20,10 @@ export abstract class BaseEntity {
         name: "updated_at",
     })
     updatedAt: Date
+
+    @DeleteDateColumn({
+        type: "timestamp",
+        name: "delete_at",
+    })
+    deletedAt: Date
 }
